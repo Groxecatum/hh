@@ -10,8 +10,6 @@ import common
 
 class HHParser(unittest.TestCase):
 
-    MAIN_URL = ''
-
     def setUp(self):
 
         profile = webdriver.FirefoxProfile()
@@ -29,22 +27,24 @@ class HHParser(unittest.TestCase):
 
         self.driver = webdriver.Firefox(profile)
         self.driver.implicitly_wait(30)
-        self.base_url = "https://almaty.hh.kz/"
+        self.base_url = "https://almaty.kz/"
         self.verificationErrors = []
         self.accept_next_alert = True
 
     def test_untitled_test_case(self):
         driver = self.driver
 
-        common.auth()
+        common.auth(driver)
 
         file = open(common.FILENAME, "w")
 
         for link in file.readlines():
-            driver.get(link)
-            driver.find_element_by_xpath("//button[2]").click()
-            driver.find_element_by_link_text(".pdfAdobe Reader").click()
-            time.sleep(10)
+            if link.find("Page ") < 0:
+                driver.get(link)
+                driver.find_element_by_xpath("//button[2]").click()
+                driver.find_element_by_link_text(".pdfAdobe Reader").click()
+                driver.find_element_by_link_text(".txtПростой текст").click()
+                time.sleep(10)
 
     def tearDown(self):
         self.driver.quit()

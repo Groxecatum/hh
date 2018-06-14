@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
 
-FILENAME = ''
+FILENAME = '1st.txt'
 MAIN_URL = ''
+START_WITH = 1
 
 def auth(driver):
     driver.get("https://almaty.hh.kz/")
