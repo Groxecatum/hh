@@ -20,7 +20,7 @@ class HHParser(unittest.TestCase):
         profile.set_preference('browser.download.folderList', 2) # custom location
         profile.set_preference('browser.download.manager.showWhenStarting', False)
         #profile.set_preference('browser.download.dir', '/home/ysklyarov/Загрузки')
-        profile.set_preference('browser.helperApps.neverAsk.saveToDisk', 'application/pdf')
+        profile.set_preference('browser.helperApps.neverAsk.saveToDisk', 'application/pdf;application/msword;application/rtf')
 
         profile.set_preference("pdfjs.disabled", True)
         profile.set_preference("browser.helperApps.alwaysAsk.force", False)
@@ -34,7 +34,7 @@ class HHParser(unittest.TestCase):
         self.verificationErrors = []
         self.accept_next_alert = True
 
-    def test_untitled_test_case(self):
+    def test_save(self):
         driver = self.driver
 
         common.auth(driver)
@@ -44,14 +44,18 @@ class HHParser(unittest.TestCase):
         i = 0
         for link in file.readlines():
             i += 1
+            link = link.strip("\n")
             if link.find("Page ") < 0 and i >= START_WITH and i < TRESHOLD:
                 driver.get(link)
+                print "Saving " + link
                 time.sleep(random.randint(1, 2))
                 driver.find_element_by_xpath("//button[2]").click()
                 time.sleep(random.randint(1, 2))
                 driver.find_element_by_link_text(".pdfAdobe Reader").click()
-                #time.sleep(random.randint(1, 2))
-                #driver.find_element_by_link_text(".txtПростой текст").click()
+                time.sleep(random.randint(1, 2))
+                driver.find_element_by_link_text(".docMicrosoft Word").click()
+                time.sleep(random.randint(1, 2))
+                driver.find_element_by_link_text(".rtfMicrosoft Word").click()
                 time.sleep(random.randint(5, 10))
 
     def tearDown(self):

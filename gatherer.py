@@ -19,7 +19,7 @@ class HHGatherer(unittest.TestCase):
         self.verificationErrors = []
         self.accept_next_alert = True
 
-    def test_untitled_test_case(self):
+    def test_gather(self):
         driver = self.driver
 
         file = open(FILENAME, "a")
