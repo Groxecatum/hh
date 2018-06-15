@@ -44,7 +44,7 @@ class HHParser(unittest.TestCase):
         i = 0
         for link in file.readlines():
             i += 1
-            if link.find("Page ") < 0 and i >= START_WITH:
+            if link.find("Page ") < 0 and i >= START_WITH and i < TRESHOLD:
                 driver.get(link)
                 time.sleep(random.randint(1, 2))
                 driver.find_element_by_xpath("//button[2]").click()
