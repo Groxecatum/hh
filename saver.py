@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 
 from selenium import webdriver
-from selenium.common.exceptions import NoSuchElementException
-from selenium.common.exceptions import NoAlertPresentException
 import unittest
 import time
 import common
+import random
 
+
+FILENAME = '1st.txt'
+START_WITH = 1
+TRESHOLD = 450
 
 class HHParser(unittest.TestCase):
 
@@ -36,15 +39,20 @@ class HHParser(unittest.TestCase):
 
         common.auth(driver)
 
-        file = open(common.FILENAME, "w")
+        file = open(FILENAME, "r")
 
+        i = 0
         for link in file.readlines():
-            if link.find("Page ") < 0:
+            i += 1
+            if link.find("Page ") < 0 and i >= START_WITH:
                 driver.get(link)
+                time.sleep(random.randint(1, 2))
                 driver.find_element_by_xpath("//button[2]").click()
+                time.sleep(random.randint(1, 2))
                 driver.find_element_by_link_text(".pdfAdobe Reader").click()
+                time.sleep(random.randint(1, 2))
                 driver.find_element_by_link_text(".txtПростой текст").click()
-                time.sleep(10)
+                time.sleep(random.randint(5, 10))
 
     def tearDown(self):
         self.driver.quit()
