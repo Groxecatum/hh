@@ -50,8 +50,8 @@ class HHParser(unittest.TestCase):
                 driver.find_element_by_xpath("//button[2]").click()
                 time.sleep(random.randint(1, 2))
                 driver.find_element_by_link_text(".pdfAdobe Reader").click()
-                time.sleep(random.randint(1, 2))
-                driver.find_element_by_link_text(".txtПростой текст").click()
+                #time.sleep(random.randint(1, 2))
+                #driver.find_element_by_link_text(".txtПростой текст").click()
                 time.sleep(random.randint(5, 10))
 
     def tearDown(self):
