@@ -27,14 +27,20 @@ class HHGatherer(unittest.TestCase):
         common.auth(driver)
 
         i = START_WITH - 1
+        file.write(MAIN_URL + "\n")
         while True:
             driver.get(MAIN_URL + str(i))
             file.write("Page " + str(i) + "\n")
             i += 1
+            elems = False
             for elem in driver.find_elements_by_xpath("(//a[@itemprop='jobTitle'])"):
-                 file.write(elem.get_property('href') + "\n")
+                elems = True
+                file.write(elem.get_property('href') + "\n")
+            if not elems:
+                break
             file.flush()
             print "Page " + str(i) + " done!"
+        print "Job ended!"
 
 
     def tearDown(self):
