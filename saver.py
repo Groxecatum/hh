@@ -45,7 +45,7 @@ class HHParser(unittest.TestCase):
         for link in file.readlines():
             i += 1
             link = link.strip("\n")
-            if link.find("Page ") < 0 and i >= START_WITH and i < TRESHOLD:
+            if link.find("Page ") < 0 and i >= START_WITH and i < TRESHOLD + START_WITH:
                 driver.get(link)
                 print "Saving " + link
                 time.sleep(random.randint(1, 2))
